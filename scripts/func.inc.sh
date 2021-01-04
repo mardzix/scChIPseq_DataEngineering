@@ -312,7 +312,7 @@ bowtie2_func()
 bw_func()
 {
 
-    source /bioinfo/local/build/Centos/miniconda/miniconda3-4.4.6/bin/activate /bioinfo/local/build/Centos/envs_conda/deeptools_3.1.0
+    #source /bioinfo/local/build/Centos/miniconda/miniconda3-4.4.6/bin/activate /bioinfo/local/build/Centos/envs_conda/deeptools_3.1.0
 
     local out=$2
     mkdir -p ${out}
@@ -332,7 +332,7 @@ bw_func()
     fi
     exec_cmd ${cmd} > ${log} 2>&1
 
-    source /bioinfo/local/build/Centos/miniconda/miniconda3-4.4.6/bin/deactivate
+    #source /bioinfo/local/build/Centos/miniconda/miniconda3-4.4.6/bin/deactivate
 }
 
 

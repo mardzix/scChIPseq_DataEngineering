@@ -161,28 +161,28 @@ bw_func ${GENOME_BAM_FLAGGED_RMDUP} ${ODIR}/tracks/ ${LOGDIR}
 time make_counts ${GENOME_BAM_FLAGGED_RMDUP} ${ODIR}/counts/ ${ODIR}/mapping/ ${LOGDIR}
 
 ## 7- Write Metadata
-add_info_to_log ${ODIR}/mapping/genome ${ODIR}/logs ${ODIR} ${PREFIX} ${BIN_PATH} ${ARGUMENTS} ${BIN_NAME}
-#write_metadata ${ODIR} ${PREFIX} "${CMD_LINE}" ${CONF} ${LOGDIR} ${GENOME_BAM_FLAGGED} ${GENOME_BAM_FLAGGED_RMDUP} ${BARCODE_BAM}
-
-## 8- Run Downstream analysis with default parameters
-DATASET_NAME=${PREFIX}_${BIN_SIZE}
-COUNT_MAT=${PREFIX}_flagged_rmPCR_RT_rmDup_counts_${BIN_SIZE}.tsv
-
-export PATH=/bioinfo/local/build/Centos/bedtools/bedtools-2.25.0/bin/:$PATH:/bioinfo/local/build/MACS2_2.0.10/bin/
-
-Rscript ${R_DOWNSTREAM} "$(dirname ${R_DOWNSTREAM})" ${ODIR}/ ${DATASET_NAME} ${ANNOT} -1 ${ODIR}/counts/${COUNT_MAT} -n ${N_CLUSTER} -p ${MIN_PERCENT_COR} -log ${LOGDIR}/${DATASET_NAME}_R_downstream.log
-/bioinfo/local/build/Centos/python/python-3.6.1/bin/multiqc -f --no-data-dir -i ${PREFIX} -o ${ODIR} -n ${DATASET_NAME}_report.html  -c ~/scChIPseq/config_defaults.yaml -f ${ODIR}/mapping/${PREFIX}_flagged.count ${ODIR}/mapping/${PREFIX}_flagged_rmPCR_RT_rmDup.count ${ODIR}/mapping/${PREFIX}_flagged_rmPCR.count ${ODIR}/mapping/${PREFIX}_flagged_rmPCR_RT.count ${ODIR}/${PREFIX}_scChIPseq_logs.txt ${ODIR}/counts/${COUNT_MAT}
-
-for bed in ${BED_FEATURES}
-do
-	bed=$(basename $bed | sed 's/.bed//')
-	DATASET_NAME=${PREFIX}_${bed}
-	COUNT_MAT=${PREFIX}_flagged_rmPCR_RT_rmDup_counts_${bed}.tsv
-	Rscript ${R_DOWNSTREAM} `dirname ${R_DOWNSTREAM}` ${ODIR}/ ${DATASET_NAME} ${ANNOT} -1 ${ODIR}/counts/${COUNT_MAT} -n ${N_CLUSTER} -p ${MIN_PERCENT_COR} -log ${LOGDIR}/${DATASET_NAME}_R_downstream.log
-/bioinfo/local/build/Centos/python/python-3.6.1/bin/multiqc -f --no-data-dir -i ${PREFIX} -o ${ODIR} -n ${DATASET_NAME}_report.html  -c ~/scChIPseq/config_defaults.yaml -f ${ODIR}/mapping/${PREFIX}_flagged.count ${ODIR}/mapping/${PREFIX}_flagged_rmPCR_RT_rmDup.count ${ODIR}/mapping/${PREFIX}_flagged_rmPCR.count ${ODIR}/mapping/${PREFIX}_flagged_rmPCR_RT.count ${ODIR}/${PREFIX}_scChIPseq_logs.txt ${ODIR}/counts/${COUNT_MAT}
-
-done
-
+  #add_info_to_log ${ODIR}/mapping/genome ${ODIR}/logs ${ODIR} ${PREFIX} ${BIN_PATH} ${ARGUMENTS} ${BIN_NAME}
+# write_metadata ${ODIR} ${PREFIX} "${CMD_LINE}" ${CONF} ${LOGDIR} ${GENOME_BAM_FLAGGED} ${GENOME_BAM_FLAGGED_RMDUP} ${BARCODE_BAM}
+#
+# ## 8- Run Downstream analysis with default parameters
+# DATASET_NAME=${PREFIX}_${BIN_SIZE}
+# COUNT_MAT=${PREFIX}_flagged_rmPCR_RT_rmDup_counts_${BIN_SIZE}.tsv
+#
+# export PATH=/bioinfo/local/build/Centos/bedtools/bedtools-2.25.0/bin/:$PATH:/bioinfo/local/build/MACS2_2.0.10/bin/
+#
+# Rscript ${R_DOWNSTREAM} "$(dirname ${R_DOWNSTREAM})" ${ODIR}/ ${DATASET_NAME} ${ANNOT} -1 ${ODIR}/counts/${COUNT_MAT} -n ${N_CLUSTER} -p ${MIN_PERCENT_COR} -log ${LOGDIR}/${DATASET_NAME}_R_downstream.log
+# /bioinfo/local/build/Centos/python/python-3.6.1/bin/multiqc -f --no-data-dir -i ${PREFIX} -o ${ODIR} -n ${DATASET_NAME}_report.html  -c ~/scChIPseq/config_defaults.yaml -f ${ODIR}/mapping/${PREFIX}_flagged.count ${ODIR}/mapping/${PREFIX}_flagged_rmPCR_RT_rmDup.count ${ODIR}/mapping/${PREFIX}_flagged_rmPCR.count ${ODIR}/mapping/${PREFIX}_flagged_rmPCR_RT.count ${ODIR}/${PREFIX}_scChIPseq_logs.txt ${ODIR}/counts/${COUNT_MAT}
+#
+# for bed in ${BED_FEATURES}
+# do
+#   bed=$(basename $bed | sed 's/.bed//')
+#   DATASET_NAME=${PREFIX}_${bed}
+#   COUNT_MAT=${PREFIX}_flagged_rmPCR_RT_rmDup_counts_${bed}.tsv
+#   Rscript ${R_DOWNSTREAM} `dirname ${R_DOWNSTREAM}` ${ODIR}/ ${DATASET_NAME} ${ANNOT} -1 ${ODIR}/counts/${COUNT_MAT} -n ${N_CLUSTER} -p ${MIN_PERCENT_COR} -log ${LOGDIR}/${DATASET_NAME}_R_downstream.log
+# /bioinfo/local/build/Centos/python/python-3.6.1/bin/multiqc -f --no-data-dir -i ${PREFIX} -o ${ODIR} -n ${DATASET_NAME}_report.html  -c ~/scChIPseq/config_defaults.yaml -f ${ODIR}/mapping/${PREFIX}_flagged.count ${ODIR}/mapping/${PREFIX}_flagged_rmPCR_RT_rmDup.count ${ODIR}/mapping/${PREFIX}_flagged_rmPCR.count ${ODIR}/mapping/${PREFIX}_flagged_rmPCR_RT.count ${ODIR}/${PREFIX}_scChIPseq_logs.txt ${ODIR}/counts/${COUNT_MAT}
+#
+# done
+#
 echo
 echo -e "Completed on ${when}! Results are available in ${ODIR}"
 echo
